@@ -1,10 +1,10 @@
 #This is the main script
 '''
 This script as of now only supports scripting, I will be rolling out new versions of this 
-in the future, where you need not apply any scripting to get your things done in an SQLite Database
+in the future, where you need not write any queries to get your things done in an SQLite Database
 
 If you are an expert in TKinter and Python feel free to give me a hand in developing tools
-such as this. Or support me in my Patreon
+such as this. Or support me in my Github Sponsorship page.
 '''
 from tkinter import *
 from tkinter import Tk
@@ -111,39 +111,5 @@ def openDBWin():
 
 createBtn = Button(app,text="CREATE A DATABASE",command=lambda:createDBWin()).pack()
 openBtn = Button(app,text="OPEN EXISTING DATABASE",command=lambda:openDBWin()).pack()
-'''
-
-
-
-
-
-
-
-return self.entryBox.get()
-textBox = Text(self,bg="white").pack()
-
-
-
-
-
-try:
-def cal(databaseName):
-    h = databaseHandler(databaseName)
-    h.db.close()
-except Exception as e:
-messagebox.showerror("FAILED","FAILED TO CREATE DATABASE")
-#finally:
-#messagebox.showinfo("SUCCESS","DATABASE CREATED SUCCESFULLY !")
-
-
-sub = Toplevel(app)
-sub.title("CREATE DATABASE")
-sub.iconbitmap(appinit.ico)
-sub.geometry("300x150")
-dbname = Entry(sub).grid(row=2,column=2)
-dbbutton = Button(sub,text="CREATE",activebackground="green",padx=10,anchor=CENTER,command=lambda:cal(dbname)).grid(row=3,column=1)
-
-def openDB():
-pass'''
 
 app.mainloop()
