@@ -69,13 +69,20 @@ def openDBWin():
          
         slave = Toplevel(app)
         slave.title(wFile.name)
-        slave.geometry(f"{slaveGeo[0]}x{slaveGeo[1]}")
+        slave.geometry("1500x1500")
         slave.iconbitmap(ico)
 
+        #option to insert blob into database
+        '''
+        def blobInsert():
+            blobFile = filedialog.askopenfile(initialdir=f"{directory}/Documents",filetypes=[("PNG FILES",".png"),("JPEG FILES",".jpg"),("ALL FILES","*")])
+            with open (blobFile,"rb") as file:'''
+                 
+                    
 
         def openDBFunc(dbQuery):
-
-                if dbQuery != None:
+                if dbQuery.strip() != "":
+                    print(dbQuery)
                     try:
                         db = sqlite3.connect(wFile.name)#called the name object otherwise, it will show <_io.TextIOWrapper name='C:/Users/joshu/Desktop/test.db' mode='r' encoding='cp1252'>
 
@@ -89,9 +96,9 @@ def openDBWin():
                         db.close()
                         messagebox.showinfo("SUCCESS","Query Executed Successfully !")
                     except Exception as e:
-                        messagebox.showerror("OOPS !",f"ERROR CODE:{e}")
+                        messagebox.showerror("OOPS !",f"ERROR CODE 000:{e}")
                 else:
-                    pass
+                    messagebox.showwarning("Query Box Empty","You have not given any queries to execute")
         
         if wFile != "":
             localtitle = wFile
@@ -101,8 +108,11 @@ def openDBWin():
             #make it look cool
             #queryBox.tag_config("keywords",foreground="red")
             #queryBox.tag_config("output",foreground="green",background="black")
+            #frm = Frame(slave).pack()
         
-            crtDbButton = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
+            exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
+            blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
+
         slave.mainloop()
     else:
          messagebox.showerror("CRITICAL ERROR","Select a database file !")
