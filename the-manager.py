@@ -82,7 +82,7 @@ def openDBWin():
 
         def openDBFunc(dbQuery):
                 if dbQuery.strip() != "":
-                    print(dbQuery)
+                    #print(dbQuery)
                     try:
                         db = sqlite3.connect(wFile.name)#called the name object otherwise, it will show <_io.TextIOWrapper name='C:/Users/joshu/Desktop/test.db' mode='r' encoding='cp1252'>
 
@@ -101,8 +101,9 @@ def openDBWin():
                     messagebox.showwarning("Query Box Empty","You have not given any queries to execute")
         
         if wFile != "":
+            app.iconify()
             localtitle = wFile
-            queryBox = Text(slave,relief=SUNKEN)
+            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
             queryBox.pack(fill=BOTH)
 
             #make it look cool
@@ -111,7 +112,11 @@ def openDBWin():
             #frm = Frame(slave).pack()
         
             exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
+
             blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
+
+
+            
 
         slave.mainloop()
     else:
