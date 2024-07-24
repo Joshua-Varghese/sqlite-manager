@@ -113,7 +113,7 @@ def openDBWin():
         
             exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
 
-            #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
+            blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
 
 
             
