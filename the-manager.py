@@ -103,7 +103,8 @@ def openDBWin():
         if wFile != "":
             app.iconify()
             localtitle = wFile
-            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
+            
+            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"),yscrollcommand=srb.set)
             queryBox.pack(fill=BOTH)
     
             #make it look cool
@@ -111,7 +112,10 @@ def openDBWin():
             #queryBox.tag_config("output",foreground="green",background="black")
             #frm = Frame(slave).pack()
         
-            exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
+            exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
+            exeQueryBtn.pack()#Get the entire text
+            
+
 
             #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
 
