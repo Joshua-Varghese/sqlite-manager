@@ -97,7 +97,11 @@ def openDBWin():
             app.iconify()
             localtitle = wFile
             
+<<<<<<< HEAD
             queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
+=======
+            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"),yscrollcommand=srb.set)
+>>>>>>> dc068de5e74723138eb753f20e064096a2b3b34c
             queryBox.pack(fill=BOTH)
     
             #make it look cool
