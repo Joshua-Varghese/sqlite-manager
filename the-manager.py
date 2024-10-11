@@ -13,7 +13,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import os
 import sqlite3
-
+#the problem is it is not deteching monitor size and being at it !
 #attributes of main win
 ico = "theicon.ico"
 geo = (500,500)
@@ -69,16 +69,9 @@ def openDBWin():
          
         slave = Toplevel(app)
         slave.title(wFile.name)
-        slave.geometry("1500x1500")
+        slave.geometry(f"{slaveGeo[0]}x{slaveGeo[1]}")
         slave.iconbitmap(ico)
 
-        #option to insert blob into database
-        '''
-        def blobInsert():
-            blobFile = filedialog.askopenfile(initialdir=f"{directory}/Documents",filetypes=[("PNG FILES",".png"),("JPEG FILES",".jpg"),("ALL FILES","*")])
-            with open (blobFile,"rb") as file:'''
-                 
-                    
 
         def openDBFunc(dbQuery,event=None):
                 if dbQuery.strip() != "":
@@ -96,9 +89,9 @@ def openDBWin():
                         db.close()
                         messagebox.showinfo("SUCCESS","Query Executed Successfully !")
                     except Exception as e:
-                        messagebox.showerror("OOPS !",f"ERROR CODE 000:{e}")
+                        messagebox.showerror("OOPS !",f"ERROR CODE:{e}")
                 else:
-                    messagebox.showwarning("Query Box Empty","You have not given any queries to execute")
+                    pass
         
         if wFile != "":
             slave.bind("<Control_L>e",lambda event:openDBFunc(queryBox.get("1.0",END),event))
@@ -112,7 +105,6 @@ def openDBWin():
             #make it look cool
             #queryBox.tag_config("keywords",foreground="red")
             #queryBox.tag_config("output",foreground="green",background="black")
-            #frm = Frame(slave).pack()
         
             #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
             #exeQueryBtn.pack()#Get the entire text
