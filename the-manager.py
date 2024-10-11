@@ -13,7 +13,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import os
 import sqlite3
-
+#the problem is it is not deteching monitor size and being at it !
 #attributes of main win
 ico = "theicon.ico"
 geo = (500,500)
@@ -69,51 +69,20 @@ def openDBWin():
          
         slave = Toplevel(app)
         slave.title(wFile.name)
-        slave.geometry("1500x1500")
+        slave.geometry(f"{slaveGeo[0]}x{slaveGeo[1]}")
         slave.iconbitmap(ico)
 
-        #option to insert blob into database
-        '''
-        def blobInsert():
-            blobFile = filedialog.askopenfile(initialdir=f"{directory}/Documents",filetypes=[("PNG FILES",".png"),("JPEG FILES",".jpg"),("ALL FILES","*")])
-            with open (blobFile,"rb") as file:'''
-                 
-                    
 
+dev
         def openDBFunc(dbQuery,event=None):
                 if dbQuery.strip() != "":
                     #print(dbQuery)
-                    try:
-                        db = sqlite3.connect(wFile.name)#called the name object otherwise, it will show <_io.TextIOWrapper name='C:/Users/joshu/Desktop/test.db' mode='r' encoding='cp1252'>
-
-                        cur = db.cursor()
-
-                        cur.execute(dbQuery)
-                        output = cur.fetchall()
-                        queryBox.delete("1.0",END)
-                        queryBox.insert("1.0",output,"outputs")
-                        db.commit()
-                        db.close()
-                        messagebox.showinfo("SUCCESS","Query Executed Successfully !")
-                    except Exception as e:
-                        messagebox.showerror("OOPS !",f"ERROR CODE 000:{e}")
-                else:
-                    messagebox.showwarning("Query Box Empty","You have not given any queries to execute")
-        
-        if wFile != "":
+dev
             slave.bind("<Control_L>e",lambda event:openDBFunc(queryBox.get("1.0",END),event))
-            app.iconify()
-            localtitle = wFile
-            
-            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
-            queryBox.pack(fill=BOTH)
+dev
             queryBox.insert(END,"Ctrl+E to execute the code !")
-    
-            #make it look cool
-            #queryBox.tag_config("keywords",foreground="red")
-            #queryBox.tag_config("output",foreground="green",background="black")
-            #frm = Frame(slave).pack()
         
+dev
             #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
             #exeQueryBtn.pack()#Get the entire text
             
@@ -122,9 +91,7 @@ def openDBWin():
             #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
 
 
-            
-
-        slave.mainloop()
+           
     else:
          messagebox.showerror("CRITICAL ERROR","Select a database file !")
          openDBWin()
