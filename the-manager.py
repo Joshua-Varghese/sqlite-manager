@@ -15,6 +15,7 @@ import os
 import sqlite3
 #the problem is it is not deteching monitor size and being at it !
 #attributes of main win
+_ = None
 ico = "theicon.ico"
 geo = (500,500)
 ttle = "SQLITE3 DATABASE MANAGER"
@@ -48,13 +49,13 @@ def createDBWin():
                     db = sqlite3.connect(f"{wDir}/{dbName}.db")
                     db.close()
                     messagebox.showinfo("SUCCESS",f"You have successfull created a database in {wDir}")
-                    slave.destroy()
                 else:
-                     messagebox.showerror("OOPS !","Please select a working directory to continue")
-                     createDBFunc(dbName)
+                     _ = messagebox.askretrycancel("OOPS !","Please select a working directory to continue")
+                     if(_!=False):createDBFunc(dbName)
+
             except Exception as e:
                 messagebox.showerror("OOPS !",f"Failed to Create Database File, Try again !{e}")
-
+            slave.destroy()
     entryBox = Entry(slave,relief=SUNKEN)
     entryBox.pack(fill=BOTH)
     
@@ -90,6 +91,8 @@ def openDBWin():
                         messagebox.showinfo("SUCCESS","Query Executed Successfully !")
                     except Exception as e:
                         messagebox.showerror("OOPS !",f"ERROR CODE:{e}")
+
+                        
                 else:
                     pass
         
@@ -119,8 +122,8 @@ def openDBWin():
 
         slave.mainloop()
     else:
-         messagebox.showerror("CRITICAL ERROR","Select a database file !")
-         openDBWin()
+         _ = messagebox.askretrycancel("CRITICAL ERROR","Select a database file !")
+         if(_!=False):openDBWin()
 
      
 
