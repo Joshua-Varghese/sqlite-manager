@@ -106,6 +106,7 @@ def openDBWin():
             #queryBox.tag_config("keywords",foreground="red")
             #queryBox.tag_config("output",foreground="green",background="black")
         
+            crtDbButton = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
             #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
             #exeQueryBtn.pack()#Get the entire text
             
