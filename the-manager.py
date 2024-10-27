@@ -13,7 +13,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import os
 import sqlite3
-#the problem is it is not deteching monitor size and being at it !
+#the problem is it is not deteching monitor size
 #attributes of main win
 _ = None
 ico = "theicon.ico"
@@ -104,17 +104,10 @@ def openDBWin():
             queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
             queryBox.pack(fill=BOTH)
             queryBox.insert(END,"Ctrl+E to execute the code !")
-    
-            #make it look cool
-            #queryBox.tag_config("keywords",foreground="red")
-            #queryBox.tag_config("output",foreground="green",background="black")
         
             crtDbButton = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
             #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
             #exeQueryBtn.pack()#Get the entire text
-            
-
-
             #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
 
 
