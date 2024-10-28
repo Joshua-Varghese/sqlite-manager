@@ -59,7 +59,7 @@ def createDBWin():
     entryBox = Entry(slave,relief=SUNKEN)
     entryBox.pack(fill=BOTH)
     
-    crtDbButton = Button(slave,text="CREATE",command=lambda:createDBFunc(entryBox.get())).pack()
+    crtDbButton = Button(slave,text="CREATE",command=lambda:createDBFunc(entryBox.get()),activebackground="green").pack()
     slave.mainloop()
 def openDBWin():
      #since the variables in createDBWin function are isolated, i.e they are local variables, I will be using th same terminologies for the 
@@ -120,9 +120,9 @@ def openDBWin():
 
      
 
-createBtn = Button(app,text="CREATE A DATABASE",command=lambda:createDBWin())
+createBtn = Button(app,text="CREATE A DATABASE",command=lambda:createDBWin(),activebackground="green")
 createBtn.pack()
-openBtn = Button(app,text="OPEN EXISTING DATABASE",command=lambda:openDBWin())
+openBtn = Button(app,text="OPEN EXISTING DATABASE",command=lambda:openDBWin(),activebackground="green")
 openBtn.pack()
 
 app.mainloop()
