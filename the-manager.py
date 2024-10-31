@@ -61,62 +61,75 @@ def createDBWin():
     
     crtDbButton = Button(slave,text="CREATE",command=lambda:createDBFunc(entryBox.get()),activebackground="green").pack()
     slave.mainloop()
-def openDBWin():
+def openDBWin(remote=None):
      #since the variables in createDBWin function are isolated, i.e they are local variables, I will be using th same terminologies for the 
      #variables in this function. This can be done by Classes, which will be done in the future versions of this tool
-    directory = os.path.expanduser("~") #to find the home directory of the user
-    wFile = filedialog.askopenfile(initialdir=f"{directory}/Desktop",filetypes=[("Data Base Files",".db")])
-    if wFile != None:
-         
-        slave = Toplevel(app)
-        slave.title(wFile.name)
-        slave.geometry(f"{slaveGeo[0]}x{slaveGeo[1]}")
-        slave.iconbitmap(ico)
-
-
-        def openDBFunc(dbQuery,event=None):
-                if dbQuery.strip() != "":
-                    #print(dbQuery)
-                    try:
-                        db = sqlite3.connect(wFile.name)#called the name object otherwise, it will show <_io.TextIOWrapper name='C:/Users/joshu/Desktop/test.db' mode='r' encoding='cp1252'>
-
-                        cur = db.cursor()
-
-                        cur.execute(dbQuery)
-                        output = cur.fetchall()
-                        queryBox.delete("1.0",END)
-                        queryBox.insert("1.0",output,"outputs")
-                        db.commit()
-                        db.close()
-                        messagebox.showinfo("SUCCESS","Query Executed Successfully !")
-                    except Exception as e:
-                        messagebox.showerror("OOPS !",f"ERROR CODE:{e}")
-
-                        
-                else:
-                    pass
-        
-        if wFile != "":
-            slave.bind("<Control_L>e",lambda event:openDBFunc(queryBox.get("1.0",END),event))
-            app.iconify()
-            localtitle = wFile
+    if (remote==None):
+        directory = os.path.expanduser("~") #to find the home directory of the user
+        wFile = filedialog.askopenfile(initialdir=f"{directory}/Desktop",filetypes=[("Data Base Files",".db")])
+        if wFile != None:
             
-            queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
-            queryBox.pack(fill=BOTH)
-            queryBox.insert(END,"Ctrl+E to execute the code !")
-        
-            crtDbButton = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
-            #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
-            #exeQueryBtn.pack()#Get the entire text
-            #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
+            slave = Toplevel(app)
+            slave.title(wFile.name)
+            slave.geometry(f"{slaveGeo[0]}x{slaveGeo[1]}")
+            slave.iconbitmap(ico)
 
+            def output_win(out): #separate output screen
+                 outpt_win = Toplevel(slave)
+                 outpt_win.title("OUTPUT")
+                 outpt_win.iconbitmap(ico)
 
+                 outputbx = Text(outpt_win)
+                 outputbx.pack()
+                 outputbx.insert("1.0",out)
+                 outpt_win.mainloop()
+
+            def openDBFunc(dbQuery,event=None):
+                    if dbQuery.strip() != "":
+                        #print(dbQuery)
+                        try:
+                            db = sqlite3.connect(wFile.name)#called the name object otherwise, it will show <_io.TextIOWrapper name='C:/Users/joshu/Desktop/test.db' mode='r' encoding='cp1252'>
+
+                            cur = db.cursor()
+
+                            cur.execute(dbQuery)
+                            output = cur.fetchall()
+                            #queryBox.delete("1.0",END)
+                            db.commit()
+                            db.close()
+                            messagebox.showinfo("SUCCESS","Query Executed Successfully !")
+                            output_win(output)
+                        except Exception as e:
+                            messagebox.showerror("OOPS !",f"ERROR CODE:{e}")
+
+                            
+                    else:
+                        pass
             
+            if wFile != "":
+                slave.bind("<Control_L>e",lambda event:openDBFunc(queryBox.get("1.0",END),event))
+                app.iconify()
+                localtitle = wFile
+                
+                queryBox = Text(slave,background="black",foreground="yellow",font=("Monospace","20"))
+                queryBox.pack(fill=BOTH)
+                queryBox.insert(END,"Ctrl+E to execute the code !")
+            
+                crtDbButton = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END))).pack()#Get the entire text
+                #exeQueryBtn = Button(slave,text="EXECUTE",command=lambda:openDBFunc(queryBox.get("1.0",END)))
+                #exeQueryBtn.pack()#Get the entire text
+                #blobBtn = Button(slave,text="INSERT BLOB",command=lambda:blobInsert()).pack()
 
-        slave.mainloop()
-    else:
-         _ = messagebox.askretrycancel("CRITICAL ERROR","Select a database file !")
-         if(_!=False):openDBWin()
+
+                
+
+            slave.mainloop()
+        else:
+            _ = messagebox.askretrycancel("CRITICAL ERROR","Select a database file !")
+            if(_!=False):openDBWin()
+
+    
+
 
      
 
